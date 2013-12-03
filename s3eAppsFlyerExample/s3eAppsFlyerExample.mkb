@@ -1,0 +1,37 @@
+#!/usr/bin/env mkb
+options
+{
+    module_path="$MARMALADE_ROOT/examples/s3e"
+}
+
+defines
+{
+}
+
+subprojects
+{
+    ExamplesMain
+    s3eAppsFlyer
+}
+
+
+includepath
+{
+    .
+    source
+}
+
+files
+{
+    [Source]
+    (source)
+    s3eAppsFlyerExample.cpp
+}
+
+assets
+{
+    (data)
+
+    (data-ram/data-gles1, data)
+}
+

@@ -1,0 +1,5 @@
+[APPSFLYER]
+appleAppId      Set to Your App Store application id
+devKey          Set to Your AppsFlyer dev key here
+isHTTPS         Set to true if You want to use HTTPS
+autoStart       Set to true to automatically call trackAppLaunch at app launch

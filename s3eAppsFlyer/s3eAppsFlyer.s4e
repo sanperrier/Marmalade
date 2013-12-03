@@ -1,0 +1,180 @@
+#
+# (C) 2013 AppsFlyer. All Rights Reserved.
+#
+# THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+# KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+# PARTICULAR PURPOSE.
+#
+#
+callbacks
+
+include:
+#include <s3eTypes.h>
+
+/**
+ * @addtogroup s3egroup
+ * @{
+ */
+
+/**
+ * @defgroup appsflyerapigroup S3E AppsFlyer Extension API Reference
+ *
+ * This extension allows the application to interact with the AppsFlyer
+ * analytics system.
+ *
+ * @supported
+ * - android
+ * - ios
+ *
+ */
+
+/**
+ * @}
+ * @addtogroup appsflyerapigroup
+ * @{
+ */
+
+
+/**
+ * This struct stores conversion data. This data kept valid until your callback returns.
+ */
+typedef struct s3eAppsFlyerConversionData
+{
+    /**
+     * Keys from dictionary returned to onConversionDataReceived. The pointer is valid until your callback returns.
+     */
+    char** m_Keys;
+
+    /**
+     * Values from dictionary returned to onConversionDataReceived. The pointer is valid until your callback returns.
+     */
+    char** m_Values;
+
+    /**
+     * Number of keys and values in m_Keys and m_Values arrays. Will be zero if there was error.
+     */
+    int m_Num;
+
+
+} s3eAppsFlyerConversionData;
+
+/**
+ * AppsFlyer Callbacks.
+ *
+ * @par Required Header Files
+ * s3eAppsFlyer.h
+ */
+typedef enum s3eAppsFlyerCallback
+{
+    /**
+     * Called when got conversion data from AppsFlyer.
+     * systemdata points to a s3eAppsFlyerConversionData
+     */
+    S3E_APPSFLYER_GOT_CONVERSION_DATA =  0,
+
+    S3E_APPSFLYER_CALLBACK_MAX
+} s3eAppsFlyerCallback;
+
+
+functions:
+
+/**
+ * Must be first method called. Initializes SDK.
+ * 
+ *
+ * @param appleAppId Your iTunes App ID, e.g. 34320065
+ * @param devKey Your unique developer ID, which is accessible from your account, e.g. R5AKpQjiER6LzSQ6iX
+ * @param currencyCode currency code. USD is default value. Acceptable ISO Currency codes here (http://www.xe.com/iso4217.php).
+ * @param isHTTPS Set to true to connect to AppsFlyer servers using HTTPS
+ * @param customerUserID customer user ID
+ * @return
+ * - @ref S3E_RESULT_SUCCESS if no error occurred and tracking starting.
+ * - @ref S3E_RESULT_ERROR   if configuration is incorrect and no tracking started. \n
+ *
+ */
+s3eResult s3eAppsFlyerStartSession(const char* appleAppId S3E_DEFAULT(NULL), const char* devKey S3E_DEFAULT(NULL), const char* currencyCode S3E_DEFAULT(NULL), s3eBool isHTTPS S3E_DEFAULT(S3E_FALSE), const char* customerUserID S3E_DEFAULT(NULL) ) S3E_RESULT_ERROR run_on_os_thread
+
+
+/**
+ * If You with the SDK to connect AppsFlyer's servers via HTTPS. The defaults is HTTP.
+ *
+ * @param isHTTPS Set to true to connect to AppsFlyer servers using HTTPS
+ *
+ */
+void s3eAppsFlyerSetHTTPS(s3eBool isHTTPS) NULL run_on_os_thread
+
+
+/**
+ * AppsFlyer provides you a method to opt-out specific users from AppsFlyer analytics.
+ * This method complies with the latest privacy requirements and complies with Facebook data and privacy policies.
+ *
+ */
+void s3eAppsFlyerSetTrackingDisable(s3eBool _disable) NULL run_on_os_thread
+
+/**
+ *
+ */
+void s3eAppsFlyerSetIsDebug(s3eBool _isDebug) NULL run_on_os_thread
+
+/**
+ * Set currency code.
+ * 
+ * USD is default value. Acceptable ISO Currency codes here (http://www.xe.com/iso4217.php).
+ * Example
+ *  British Pound:
+ *    s3eAppsFlyerSetCurrencyCode("GBP");
+ *  US Dollar:
+ *    s3eAppsFlyerSetCurrencyCode("USD");
+ * 
+ *
+ * @param currencyCode currency code
+ *
+ */
+void s3eAppsFlyerSetCurrencyCode(const char* currencyCode) NULL run_on_os_thread
+
+/**
+ * Set customer user ID. Must be called before s3eAppsFlyerStartSession.
+ * 
+ * (Optional) Set customer user ID with the SDK and reporting (used to match with the client internal ID’s).
+ * 
+ *
+ * @param customerUserID Customer user ID
+ *
+ */
+void s3eAppsFlyerSetCustomerUserID(const char* customerUserID) NULL run_on_os_thread
+
+/**
+ * Track custom In-App Event
+ * 
+ *
+ * @param eventName Event name is any string to define the event name. For example: “registration” or “purchase”
+ * @param value Event value is the sales value. For example: "0.99" or "0.79". Can be null.
+ *
+ */
+void s3eAppsFlyerTrackEvent(const char* eventName, const char* value S3E_DEFAULT(NULL)) NULL run_on_os_thread
+
+/**
+ * 
+ * Get AppsFlyer’s proprietary device ID. AppsFlyer device ID is 
+ * the main ID used by AppsFlyer in the Reports and API’s.
+ * You must free returned string by yourself.
+ * 
+ *
+ * @return AppsFlyer’s Unique Device UID as string.
+ *
+ */
+const char *  getAppsFlyerUID() NULL run_on_os_thread
+
+/**
+ * 
+ * Gets conversion data using loadConversionDataWithDelegate method of AppsFlyer SDK
+ * Data returned in callback S3E_APPSFLYER_GOT_CONVERSION_DATA.
+ * 
+ *
+ */
+void s3eAppsFlyerLoadConversionData() NULL run_on_os_thread
+
+
+append:
+/** @} */
