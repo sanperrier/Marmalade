@@ -43,7 +43,7 @@ Where
 If you set `autoStart` to true then this is all you need to start tracking installs, updates ans seesions. 
 (For Android you must also make sure you using right AndroidManifest.xml).
 If you wish track additional in-app events beyond app installs (including in-app purchases, game levels, etc.) 
-then you must use [API](#API Reference).
+then you must use [API](#api-reference).
 
 
 
