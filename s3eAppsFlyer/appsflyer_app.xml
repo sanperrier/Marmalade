@@ -1,0 +1,13 @@
+<!--
+<receiver android:name ="com.appsflyer.AppsFlyerLib" android:exported="true">
+    <intent-filter>
+        <action android:name ="com.android.vending.INSTALL_REFERRER" />
+    </intent-filter>
+</receiver>
+-->
+
+<receiver android:name ="com.appsflyer.extension.s3eAppsFlyerInstallReceiver.s3eAppsFlyerInstallReceiver" android:exported="true">
+    <intent-filter>
+        <action android:name ="com.android.vending.INSTALL_REFERRER" />
+    </intent-filter>
+</receiver>

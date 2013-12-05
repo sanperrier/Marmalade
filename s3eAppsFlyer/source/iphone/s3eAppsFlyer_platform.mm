@@ -214,6 +214,17 @@ s3eResult s3eAppsFlyerStartSession_internal(const char* _appleAppId, const char*
         //strcpy(g_DisplayString, "`x666666"); //Make the string grey
         //strcat(g_DisplayString, TempString); //Add the result of s3eConfigGetString
     }
+
+    const char currencyCodeStr = NULL;
+    char currencyCode[S3E_CONFIG_STRING_MAX+8] = {'\0'};
+    if (s3eConfigGetString("APPSFLYER", "currencyCode", currencyCode) != S3E_RESULT_ERROR)
+    {
+        currencyCodeStr = currencyCode;
+    }
+    if (_currencyCode) {
+        currencyCodeStr = _currencyCode;
+    }
+    
     char tempStr[S3E_CONFIG_STRING_MAX+8] = {'\0'};
     if (s3eConfigGetString("APPSFLYER", "isHTTPS", tempStr) != S3E_RESULT_ERROR)
     {
@@ -234,8 +245,8 @@ s3eResult s3eAppsFlyerStartSession_internal(const char* _appleAppId, const char*
         {
             [AppsFlyerTracker sharedTracker].isHTTPS = YES; 
         }
-        if (_currencyCode != NULL) {
-            NSString* nsCurrencyCode = [NSString stringWithUTF8String:_currencyCode];
+        if (currencyCodeStr != NULL) {
+            NSString* nsCurrencyCode = [NSString stringWithUTF8String:currencyCodeStr];
             [AppsFlyerTracker sharedTracker].currencyCode = nsCurrencyCode;
         }
         if (_customerUserID != NULL) {
