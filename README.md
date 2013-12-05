@@ -1,12 +1,12 @@
 s3eAppsFlyer
 ============
 
-Marmalade extension for http://appsflyer.com SDK.
+Marmalade extension for http://appsflyer.com SDK.  
 Supports Android and iOS platforms.
 
 
-On iOS used AppsFlyer iOS SDK v2.5.3.3
-On Android used AppsFlyer Android SDK v1.3.19
+On iOS used AppsFlyer iOS SDK v2.5.3.3  
+On Android used AppsFlyer Android SDK v1.3.19  
 
 
 
@@ -35,13 +35,13 @@ Then add to your `app.icf`
     autoStart=true
 
 
-Where 
-`isHTTPS` key is optional. Default is false.
-`autoStart` key is optional. Default is false.
+Where  
+`isHTTPS` key is optional. Default is false.  
+`autoStart` key is optional. Default is false.  
 
 
 If you set `autoStart` to true then this is all you need to start tracking installs, updates ans seesions. 
-(For Android you must also make sure you using right AndroidManifest.xml).
+(For Android you must also make sure you using right AndroidManifest.xml).  
 If you wish track additional in-app events beyond app installs (including in-app purchases, game levels, etc.) 
 then you must use [API](#api-reference).
 
@@ -96,7 +96,7 @@ Must be first method called. Initializes SDK. Called automatically if `autoStart
 void s3eAppsFlyerTrackEvent(const char* eventName, const char* value S3E_DEFAULT(NULL));
 ```
 Allows you to send in-app events to AppsFlyer analytics. This method allows you to add events dynamically 
-by adding them directly to the application code. 
+by adding them directly to the application code.  
 Params:
 
 - eventName is any string to define the event name . For example: “registration” or “purchase”
