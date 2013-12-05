@@ -2,20 +2,7 @@
 *.o
 *.ko
 
-# Libraries
-*.lib
-*.a
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
 
 *.stamp
 s3eAppsFlyerExample/build_s3eappsflyerexample_vc10
