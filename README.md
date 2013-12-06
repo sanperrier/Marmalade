@@ -45,8 +45,30 @@ If you set `autoStart` to true then this is all you need to start tracking insta
 If you wish track additional in-app events beyond app installs (including in-app purchases, game levels, etc.) 
 then you must use [API](#api-reference).
 
-
 If you don't want to use .icf file or you want to set your own custom user ID then you must call `s3eAppsFlyerStartSession`.
+
+Android notes
+-------------
+The AndroidManifest.xml should include the following permissions:
+```xml
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+```
+
+* READ_PHONE_STATE permission is optional.
+Adding this permission will enable carrier tracking of Android_id and IMEI (required for tracking out of Google Play).
+
+This three permission is automatically included if you use this extension. If you want to remove some of them then edit file s3eAppsFlyer/appsflyer_perm.xml.
+
+Also for AppsFlyer to work there must be AppsFlyer receiver section in AndroidManifest.xml and it must be first.  
+There is example AndroidManifest.xml that you can use in s3eAppsFlyerExample folder.  
+Just copy it into you project's folder and add to deployments section of you project's mkb:
+
+
+    android-manifest=AndroidManifest.xml
+
+
 
 
 API Reference
