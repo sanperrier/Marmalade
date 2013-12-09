@@ -40,7 +40,7 @@ Where
 `autoStart` key is optional. Default is false.  
 
 
-If you set `autoStart` to true then this is all you need to start tracking installs, updates ans sessions. 
+If you set `autoStart` to true then this is all you need to start tracking installs, updates and sessions. 
 (For Android you must also make sure you using right AndroidManifest.xml).  
 If you wish track additional in-app events beyond app installs (including in-app purchases, game levels, etc.) 
 then you must use [API](#api-reference).
@@ -121,7 +121,7 @@ Allows you to send in-app events to AppsFlyer analytics. This method allows you 
 by adding them directly to the application code.  
 Params:
 
-- eventName is any string to define the event name . For example: “registration” or “purchase”
+- eventName is any string to define the event name . For example: ï¿½registrationï¿½ or ï¿½purchaseï¿½
 - value is the sales value. For example: "0.99" or "0.79"
 
 
@@ -163,14 +163,14 @@ US Dollar:
 ```c++
 void s3eAppsFlyerSetCustomerUserID(const char* customerUserID);
 ```
-Set customer user ID with the SDK and reporting (used to match with the client internal ID’s).  
+Set customer user ID with the SDK and reporting (used to match with the client internal IDï¿½s).  
 See section 8 of [doc](http://support.appsflyer.com/attachments/token/ornpe0dk5bwye1f/?name=AF-iOS-Integration-Guide-v2.5.3.2-New-API.pdf) for more details.
 
 
 ```c++
 const char * getAppsFlyerUID();
 ```
-Get AppsFlyer’s proprietary device ID. AppsFlyer device ID is the main ID used by AppsFlyer in the Reports and API’s.
+Get AppsFlyerï¿½s proprietary device ID. AppsFlyer device ID is the main ID used by AppsFlyer in the Reports and APIï¿½s.
 
 
 <br/>
