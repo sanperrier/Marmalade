@@ -180,21 +180,29 @@ s3eResult s3eAppsFlyerStartSession_platform_2(const char* appleAppId, const char
 
         //const char* currencyCodeStr = NULL;
         char currencyCodeBuf[S3E_CONFIG_STRING_MAX+8] = {'\0'};
-        if (s3eConfigGetString("APPSFLYER", "currencyCode", currencyCodeBuf) != S3E_RESULT_ERROR) {
+        if ((_currencyCode == NULL || _currencyCode[0] == NULL) && s3eConfigGetString("APPSFLYER", "currencyCode", currencyCodeBuf) != S3E_RESULT_ERROR) {
             _currencyCode = currencyCodeBuf;
         }
 
         //const char * devKeyStr = NULL;
         char devKeyBuf[S3E_CONFIG_STRING_MAX+8] = {'\0'};
-        if (s3eConfigGetString("APPSFLYER", "devKey", devKeyBuf) == S3E_RESULT_ERROR)
+        if (_devKey == NULL || _devKey[0] == NULL)
         {
-            //An error occurred during reading of the configuration file
-            return S3E_RESULT_SUCCESS;
+            if (s3eConfigGetString("APPSFLYER", "devKey", devKeyBuf) == S3E_RESULT_ERROR)
+            {
+                //An error occurred during reading of the configuration file
+                return S3E_RESULT_SUCCESS;
+            }
+            else
+            {
+                //Reading of configuration successful
+                _devKey = devKeyBuf;
+            }
         }
-        else
+        if (_devKey == NULL || _devKey[0] == NULL)
         {
-            //Reading of configuration successful
-            _devKey = devKeyBuf;
+            // No devKey provided
+            return S3E_RESULT_SUCCESS;
         }
         char tempStr[S3E_CONFIG_STRING_MAX+8] = {'\0'};
         if (s3eConfigGetString("APPSFLYER", "isHTTPS", tempStr) != S3E_RESULT_ERROR) {

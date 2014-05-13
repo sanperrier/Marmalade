@@ -28,6 +28,7 @@ static char g_StatusStr[8192]; // Can be quite a long string!
 
 // Buttons
 static Button* g_StartSession = NULL;
+static Button* g_StartSession2 = NULL;
 static Button* g_getAppsFlyerUID = NULL;
 static Button* g_loadConversionData = NULL;
 static Button* g_FireEventRegistration = NULL;
@@ -69,6 +70,7 @@ void ResetButtons()
     g_FireEventRegistration = 0;
     g_FireEventHotelBooked = 0;
     g_StartSession = 0;
+    g_StartSession2 = 0;
     g_UseHTTPS = 0;
     g_DisableTracking = 0;
     g_SetIsDebug = 0;
@@ -110,6 +112,7 @@ void ExampleInit()
     g_FireEventHotelBooked = NewButton("Event Hotel booked");
     g_FireEventRegistration = NewButton("Event registration");
     g_StartSession = NewButton("Start session");
+    g_StartSession2 = NewButton("Start session with explicit parameters");
     g_UseHTTPS = NewButton("Toggle HTTPS");
     g_SetIsDebug = NewButton("Toggle Debug");
     g_DisableTracking = NewButton("Disable tracking");
@@ -146,6 +149,11 @@ bool ExampleUpdate()
         else if (g_StartSession == pressed)
         {
             s3eAppsFlyerStartSession();
+            AddStatus("s3eAppsFlyerStartSession called.");
+        }
+        else if (g_StartSession2 == pressed)
+        {
+            s3eAppsFlyerStartSession(NULL, "Put you dev key here");
             AddStatus("s3eAppsFlyerStartSession called.");
         }
         else if (g_SetIsDebug == pressed)
