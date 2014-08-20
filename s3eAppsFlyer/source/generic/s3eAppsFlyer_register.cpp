@@ -78,6 +78,24 @@ static void s3eAppsFlyerLoadConversionData_wrap()
     s3eEdkThreadRunOnOS((s3eEdkThreadFunc)s3eAppsFlyerLoadConversionData, 0);
 }
 
+static void s3eAppsFlyerSetCollectIMEI_wrap(s3eBool _disable)
+{
+    IwTrace(APPSFLYER_VERBOSE, ("calling s3eAppsFlyer func on main thread: s3eAppsFlyerSetCollectIMEI"));
+    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)s3eAppsFlyerSetCollectIMEI, 1, _disable);
+}
+
+static void s3eAppsFlyerSetCollectAndroidID_wrap(s3eBool _disable)
+{
+    IwTrace(APPSFLYER_VERBOSE, ("calling s3eAppsFlyer func on main thread: s3eAppsFlyerSetCollectAndroidID"));
+    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)s3eAppsFlyerSetCollectAndroidID, 1, _disable);
+}
+
+static void s3eAppsFlyerSetCollectMACAddress_wrap(s3eBool _disable)
+{
+    IwTrace(APPSFLYER_VERBOSE, ("calling s3eAppsFlyer func on main thread: s3eAppsFlyerSetCollectMACAddress"));
+    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)s3eAppsFlyerSetCollectMACAddress, 1, _disable);
+}
+
 #define s3eAppsFlyerStartSession s3eAppsFlyerStartSession_wrap
 #define s3eAppsFlyerSetHTTPS s3eAppsFlyerSetHTTPS_wrap
 #define s3eAppsFlyerSetTrackingDisable s3eAppsFlyerSetTrackingDisable_wrap
@@ -87,6 +105,9 @@ static void s3eAppsFlyerLoadConversionData_wrap()
 #define s3eAppsFlyerTrackEvent s3eAppsFlyerTrackEvent_wrap
 #define getAppsFlyerUID getAppsFlyerUID_wrap
 #define s3eAppsFlyerLoadConversionData s3eAppsFlyerLoadConversionData_wrap
+#define s3eAppsFlyerSetCollectIMEI s3eAppsFlyerSetCollectIMEI_wrap
+#define s3eAppsFlyerSetCollectAndroidID s3eAppsFlyerSetCollectAndroidID_wrap
+#define s3eAppsFlyerSetCollectMACAddress s3eAppsFlyerSetCollectMACAddress_wrap
 
 #endif
 
@@ -103,7 +124,7 @@ s3eResult s3eAppsFlyerUnRegister(s3eAppsFlyerCallback cbid, s3eCallback fn)
 void s3eAppsFlyerRegisterExt()
 {
     /* fill in the function pointer struct for this extension */
-    void* funcPtrs[11];
+    void* funcPtrs[14];
     funcPtrs[0] = (void*)s3eAppsFlyerRegister;
     funcPtrs[1] = (void*)s3eAppsFlyerUnRegister;
     funcPtrs[2] = (void*)s3eAppsFlyerStartSession;
@@ -115,16 +136,19 @@ void s3eAppsFlyerRegisterExt()
     funcPtrs[8] = (void*)s3eAppsFlyerTrackEvent;
     funcPtrs[9] = (void*)getAppsFlyerUID;
     funcPtrs[10] = (void*)s3eAppsFlyerLoadConversionData;
+    funcPtrs[11] = (void*)s3eAppsFlyerSetCollectIMEI;
+    funcPtrs[12] = (void*)s3eAppsFlyerSetCollectAndroidID;
+    funcPtrs[13] = (void*)s3eAppsFlyerSetCollectMACAddress;
 
     /*
      * Flags that specify the extension's use of locking and stackswitching
      */
-    int flags[11] = { 0 };
+    int flags[14] = { 0 };
 
     /*
      * Register the extension
      */
-    s3eEdkRegister("s3eAppsFlyer", funcPtrs, sizeof(funcPtrs), flags, s3eAppsFlyerInit, s3eAppsFlyerTerminate, 0);
+s3eEdkRegister("s3eAppsFlyer", funcPtrs, sizeof(funcPtrs), flags, s3eAppsFlyerInit, s3eAppsFlyerTerminate, 0);
 }
 
 #if !defined S3E_BUILD_S3ELOADER

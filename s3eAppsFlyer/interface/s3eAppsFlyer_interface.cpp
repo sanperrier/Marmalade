@@ -33,6 +33,9 @@ typedef       void(*s3eAppsFlyerSetCustomerUserID_t)(const char* customerUserID)
 typedef       void(*s3eAppsFlyerTrackEvent_t)(const char* eventName, const char* value);
 typedef const char *(*getAppsFlyerUID_t)();
 typedef       void(*s3eAppsFlyerLoadConversionData_t)();
+typedef       void(*s3eAppsFlyerSetCollectIMEI_t)(s3eBool _disable);
+typedef       void(*s3eAppsFlyerSetCollectAndroidID_t)(s3eBool _disable);
+typedef       void(*s3eAppsFlyerSetCollectMACAddress_t)(s3eBool _disable);
 
 /**
  * struct that gets filled in by s3eAppsFlyerRegister
@@ -50,6 +53,9 @@ typedef struct s3eAppsFlyerFuncs
     s3eAppsFlyerTrackEvent_t m_s3eAppsFlyerTrackEvent;
     getAppsFlyerUID_t m_getAppsFlyerUID;
     s3eAppsFlyerLoadConversionData_t m_s3eAppsFlyerLoadConversionData;
+    s3eAppsFlyerSetCollectIMEI_t m_s3eAppsFlyerSetCollectIMEI;
+    s3eAppsFlyerSetCollectAndroidID_t m_s3eAppsFlyerSetCollectAndroidID;
+    s3eAppsFlyerSetCollectMACAddress_t m_s3eAppsFlyerSetCollectMACAddress;
 } s3eAppsFlyerFuncs;
 
 static s3eAppsFlyerFuncs g_Ext;
@@ -307,6 +313,66 @@ void s3eAppsFlyerLoadConversionData()
 #endif
 
     g_Ext.m_s3eAppsFlyerLoadConversionData();
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return;
+}
+
+void s3eAppsFlyerSetCollectIMEI(s3eBool _disable)
+{
+    IwTrace(APPSFLYER_VERBOSE, ("calling s3eAppsFlyer[11] func: s3eAppsFlyerSetCollectIMEI"));
+
+    if (!_extLoad())
+        return;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
+    g_Ext.m_s3eAppsFlyerSetCollectIMEI(_disable);
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return;
+}
+
+void s3eAppsFlyerSetCollectAndroidID(s3eBool _disable)
+{
+    IwTrace(APPSFLYER_VERBOSE, ("calling s3eAppsFlyer[12] func: s3eAppsFlyerSetCollectAndroidID"));
+
+    if (!_extLoad())
+        return;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
+    g_Ext.m_s3eAppsFlyerSetCollectAndroidID(_disable);
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return;
+}
+
+void s3eAppsFlyerSetCollectMACAddress(s3eBool _disable)
+{
+    IwTrace(APPSFLYER_VERBOSE, ("calling s3eAppsFlyer[13] func: s3eAppsFlyerSetCollectMACAddress"));
+
+    if (!_extLoad())
+        return;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
+    g_Ext.m_s3eAppsFlyerSetCollectMACAddress(_disable);
 
 #ifdef LOADER_CALL_LOCK
     s3eDeviceLoaderCallDone(S3E_TRUE, NULL);

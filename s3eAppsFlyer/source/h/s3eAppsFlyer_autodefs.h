@@ -11,4 +11,12 @@
 #define S3E_EXT_APPSFLYER_NAME "s3eAppsFlyer"
 #define S3E_EXT_APPSFLYER_HASH 0xc0bbea26
 
+#ifdef S3E_EXT_REGISTER
+#ifndef S3E_EXT_REGISTER_KEY
+#define S3E_EXT_REGISTER_KEY(name, num, key) S3E_EXT_REGISTER(name, num)
+#endif
+S3E_EXT_REGISTER("s3eAppsFlyer", 14)
+#else
+
+#endif /* S3E_EXT_REGISTER */
 #endif /* !S3EAPPSFLYER_AUTODEFS_H */

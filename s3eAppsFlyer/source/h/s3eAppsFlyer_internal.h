@@ -60,5 +60,11 @@ const char * getAppsFlyerUID_platform();
 
 void s3eAppsFlyerLoadConversionData_platform();
 
+void s3eAppsFlyerSetCollectIMEI_platform(s3eBool _disable);
+
+void s3eAppsFlyerSetCollectAndroidID_platform(s3eBool _disable);
+
+void s3eAppsFlyerSetCollectMACAddress_platform(s3eBool _disable);
+
 
 #endif /* !S3EAPPSFLYER_INTERNAL_H */

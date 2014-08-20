@@ -24,6 +24,9 @@ static jmethodID g_s3eAppsFlyerSetCustomerUserID;
 static jmethodID g_s3eAppsFlyerTrackEvent;
 static jmethodID g_getAppsFlyerUID;
 static jmethodID g_s3eAppsFlyerLoadConversionData;
+static jmethodID g_s3eAppsFlyerSetCollectIMEI;
+static jmethodID g_s3eAppsFlyerSetCollectAndroidID;
+static jmethodID g_s3eAppsFlyerSetCollectMACAddress;
 
 s3eResult s3eAppsFlyerStartSession_platform_2(const char* appleAppId, const char* devKey, const char* currencyCode, s3eBool isHTTPS, const char* customerUserID, s3eBool checkAutoStart);
 void free_g_conversionData();
@@ -180,13 +183,13 @@ s3eResult s3eAppsFlyerStartSession_platform_2(const char* appleAppId, const char
 
         //const char* currencyCodeStr = NULL;
         char currencyCodeBuf[S3E_CONFIG_STRING_MAX+8] = {'\0'};
-        if ((_currencyCode == NULL || _currencyCode[0] == NULL) && s3eConfigGetString("APPSFLYER", "currencyCode", currencyCodeBuf) != S3E_RESULT_ERROR) {
+        if ((_currencyCode == NULL || _currencyCode[0] == 0) && s3eConfigGetString("APPSFLYER", "currencyCode", currencyCodeBuf) != S3E_RESULT_ERROR) {
             _currencyCode = currencyCodeBuf;
         }
 
         //const char * devKeyStr = NULL;
         char devKeyBuf[S3E_CONFIG_STRING_MAX+8] = {'\0'};
-        if (_devKey == NULL || _devKey[0] == NULL)
+        if (_devKey == NULL || _devKey[0] == 0)
         {
             if (s3eConfigGetString("APPSFLYER", "devKey", devKeyBuf) == S3E_RESULT_ERROR)
             {
@@ -199,7 +202,7 @@ s3eResult s3eAppsFlyerStartSession_platform_2(const char* appleAppId, const char
                 _devKey = devKeyBuf;
             }
         }
-        if (_devKey == NULL || _devKey[0] == NULL)
+        if (_devKey == NULL || _devKey[0] == 0)
         {
             // No devKey provided
             return S3E_RESULT_SUCCESS;
@@ -346,4 +349,22 @@ void free_g_conversionData() {
         s3eEdkFreeOS(g_conversionData);
         g_conversionData = NULL;
     }
+}
+
+void s3eAppsFlyerSetCollectIMEI_platform(s3eBool _disable)
+{
+    JNIEnv* env = s3eEdkJNIGetEnv();
+    env->CallVoidMethod(g_Obj, g_s3eAppsFlyerSetCollectIMEI, _disable);
+}
+
+void s3eAppsFlyerSetCollectAndroidID_platform(s3eBool _disable)
+{
+    JNIEnv* env = s3eEdkJNIGetEnv();
+    env->CallVoidMethod(g_Obj, g_s3eAppsFlyerSetCollectAndroidID, _disable);
+}
+
+void s3eAppsFlyerSetCollectMACAddress_platform(s3eBool _disable)
+{
+    JNIEnv* env = s3eEdkJNIGetEnv();
+    env->CallVoidMethod(g_Obj, g_s3eAppsFlyerSetCollectMACAddress, _disable);
 }

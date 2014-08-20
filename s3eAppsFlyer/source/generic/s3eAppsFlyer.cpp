@@ -67,3 +67,18 @@ void s3eAppsFlyerLoadConversionData()
 {
 	s3eAppsFlyerLoadConversionData_platform();
 }
+
+void s3eAppsFlyerSetCollectIMEI(s3eBool _disable)
+{
+	s3eAppsFlyerSetCollectIMEI_platform(_disable);
+}
+
+void s3eAppsFlyerSetCollectAndroidID(s3eBool _disable)
+{
+	s3eAppsFlyerSetCollectAndroidID_platform(_disable);
+}
+
+void s3eAppsFlyerSetCollectMACAddress(s3eBool _disable)
+{
+	s3eAppsFlyerSetCollectMACAddress_platform(_disable);
+}

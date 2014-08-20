@@ -48,10 +48,27 @@ class s3eAppsFlyer
     {
         AppsFlyerLib.setUseHTTPFalback(!isHTTPS);
     }
+
     public void s3eAppsFlyerSetTrackingDisable(boolean _disable)
     {
         AppsFlyerLib.setDeviceTrackingDisabled(_disable);
     }
+
+    public void s3eAppsFlyerSetCollectIMEI(boolean _disable)
+    {
+        AppsFlyerLib.setCollectIMEI(_disable);
+    }
+
+    public void s3eAppsFlyerSetCollectAndroidID(boolean _disable)
+    {
+        AppsFlyerLib.setCollectAndroidID(_disable);
+    }
+
+    public void s3eAppsFlyerSetCollectMACAddress(boolean _disable)
+    {
+        AppsFlyerLib.setCollectMACAddress(_disable);
+    }
+
     public void s3eAppsFlyerSetIsDebug(boolean _isDebug)
     {
 
@@ -91,6 +108,7 @@ class s3eAppsFlyer
         return AppsFlyerLib.getAppsFlyerUID(LoaderActivity.m_Activity.getApplication());
 
     }
+
     public void s3eAppsFlyerLoadConversionData()
     {
         if(LoaderActivity.m_Activity.getApplication() != null)

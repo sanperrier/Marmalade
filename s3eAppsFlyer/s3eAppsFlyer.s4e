@@ -175,6 +175,23 @@ const char *  getAppsFlyerUID() NULL run_on_os_thread
  */
 void s3eAppsFlyerLoadConversionData() NULL run_on_os_thread
 
+/**
+ *  Developer can opt-out from collecting IMEI.
+ *  IMEI is collected only if READ_PHONE_STATE is presented.
+ */
+void s3eAppsFlyerSetCollectIMEI(s3eBool _disable) NULL run_on_os_thread
+
+/**
+ *  Developer can opt-out from collecting Android-ID.
+ */
+void s3eAppsFlyerSetCollectAndroidID(s3eBool _disable) NULL run_on_os_thread
+
+/**
+ *  Developer can opt-out from collecting MAC.
+ */
+void s3eAppsFlyerSetCollectMACAddress(s3eBool _disable) NULL run_on_os_thread
+
+
 
 append:
 /** @} */
