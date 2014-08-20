@@ -12,6 +12,6 @@ files
 
 librarypath "$MARMALADE_ROOT/s3e/deploy/plugins/android/android.jar"
 librarypath "$MARMALADE_ROOT/s3e/loader/android/s3e_release.jar"
-librarypath "lib/android/AF-Android-SDK-v1.3.19.jar"
+librarypath "lib/android/AF-Android-SDK-v2.3.1.9.jar"
 
 option output-name=lib/android/s3eAppsFlyer.jar

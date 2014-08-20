@@ -48,7 +48,7 @@ deployments
 #Include the extension's jar file during deployment
 deployments
 {
-    android-external-jars="lib/android/AF-Android-SDK-v2.3.1.5.2.jar"
+    android-external-jars="lib/android/AF-Android-SDK-v2.3.1.9.jar"
     android-external-jars="lib/android/s3eAppsFlyer.jar"
     android-so="lib/android/libs3eAppsFlyer.so"
 
