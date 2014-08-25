@@ -101,18 +101,6 @@ s3eResult s3eAppsFlyerInit_platform()
         goto fail;
 
     {
-        jclass receiver = s3eEdkAndroidFindClass("com/appsflyer/extension/s3eAppsFlyerInstallReceiver/s3eAppsFlyerInstallReceiver");
-        if (!receiver)
-            goto fail;
-        static const JNINativeMethod methods[]=
-        {
-            {"native_onInstallRefererRecievedCallback","([Ljava/lang/String;[Ljava/lang/String;)V",(void*)&AppsFlyer_onInstallRefererRecievedCallback}
-        };
-        // Register the native hooks
-        if (env->RegisterNatives(receiver, methods, sizeof(methods)/sizeof(methods[0])))
-            goto fail;
-    }
-    {
         jclass receiver = s3eEdkAndroidFindClass("s3eAppsFlyer");
         if (!receiver)
             goto fail;

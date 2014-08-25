@@ -6,8 +6,6 @@ files
 {
     (source/android)
     s3eAppsFlyer.java
-    (source/android/com/appsflyer/extension)
-    s3eAppsFlyerInstallReceiver.java
 }
 
 librarypath "$MARMALADE_ROOT/s3e/deploy/plugins/android/android.jar"

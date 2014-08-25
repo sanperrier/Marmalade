@@ -15,7 +15,10 @@ import com.appsflyer.AppsFlyerLib;
 import android.util.Log;
 import android.content.BroadcastReceiver;
 import java.util.ArrayList;
+import java.util.Map;
 import android.content.SharedPreferences;
+import com.appsflyer.AttributionIDNotReady;
+import com.appsflyer.AppsFlyerConversionListener;
 
 
 class s3eAppsFlyer
@@ -113,29 +116,59 @@ class s3eAppsFlyer
     {
         if(LoaderActivity.m_Activity.getApplication() != null)
         {
-            ArrayList<String> keysArray   = new ArrayList<String>(0);
-            ArrayList<String> valuesArray = new ArrayList<String>(0);
+            try {
+                sendOnInstallRefererRecievedCallback( AppsFlyerLib.getConversionData(LoaderActivity.m_Activity.getApplication()) );
+            } catch (AttributionIDNotReady e) {
+                AppsFlyerLib.registerConversionListener(LoaderActivity.m_Activity.getApplication(), new AppsFlyerConversionListener() {
 
-            SharedPreferences sharedPreferences = LoaderActivity.m_Activity.getApplication().getSharedPreferences("s3eappsflyer-data", 0);
-            String referrer = sharedPreferences.getString("referrer", "");
-            if (referrer != null && referrer.length() > 0) {
-                keysArray.add("referrer");
-                valuesArray.add(referrer);
+                    public void onInstallConversionDataLoaded(Map<String, String> conversionData)
+                    {
+                        Log.i(TAG, "onInstallConversionDataLoaded");
+                        for (String attrName : conversionData.keySet()) {
+                            Log.d(TAG,"attribute: "+attrName+" = "+conversionData.get(attrName));
+                        }
+                        sendOnInstallRefererRecievedCallback(conversionData);
+                    }
+
+                    public void onInstallConversionFailure(String errorMessage)
+                    {
+                        Log.i(TAG, "onInstallConversionFailure:" + errorMessage);
+                        
+                    }
+
+                    public void onCurrentAttributionDataLoaded(Map<String, String> map)
+                    {
+                        Log.i(TAG, "onCurrentAttributionDataLoaded");
+                        for (String attrName : map.keySet()) {
+                            Log.d(TAG,"attribute: "+attrName+" = "+map.get(attrName));
+                        }
+                        sendOnInstallRefererRecievedCallback(map);
+                    }
+                });
             }
-            try
-            {
-                if (keysArray.size() > 0) {
-                    String[] kStringArray = new String[keysArray.size()];
-                    String[] vStringArray = new String[keysArray.size()];
-                    native_onInstallRefererRecievedCallback(keysArray.toArray(kStringArray), valuesArray.toArray(vStringArray));
-                } else {
-                    Log.i(TAG, "No referer info found");
-                }
+        }
+    }
+
+    private void sendOnInstallRefererRecievedCallback(Map<String, String> conversionData) {
+        ArrayList<String> keysArray   = new ArrayList<String>(0);
+        ArrayList<String> valuesArray = new ArrayList<String>(0);
+        for (String attrName : conversionData.keySet()) {
+            keysArray.add(attrName);
+            valuesArray.add(conversionData.get(attrName));
+        }
+        try
+        {
+            if (keysArray.size() > 0) {
+                String[] kStringArray = new String[keysArray.size()];
+                String[] vStringArray = new String[keysArray.size()];
+                native_onInstallRefererRecievedCallback(keysArray.toArray(kStringArray), valuesArray.toArray(vStringArray));
+            } else {
+                Log.i(TAG, "No conversion data");
             }
-            catch (UnsatisfiedLinkError e)
-            {
-                Log.i(TAG, "Failed to send InstallRefererRecievedCallback");
-            }
+        }
+        catch (UnsatisfiedLinkError e)
+        {
+            Log.i(TAG, "Failed to send InstallRefererRecievedCallback");
         }
     }
 
