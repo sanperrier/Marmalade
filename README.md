@@ -69,6 +69,14 @@ Just copy it into you project's folder and add to deployments section of you pro
     android-manifest=AndroidManifest.xml
 
 
+### Google Advertiser Id
+Google Play Services library .jar included in extension (s3eAppsFlyer/lib/android/google-play-services.jar)
+If you want to replace it with newer version don't forget to put version metadata
+```xml
+<meta-data android:name="com.google.android.gms.version" android:value="5089000" />
+```
+to _appsflyer_app.xml_, taken from _android-sdk\extras\google\google_play_services\libproject\google-play-services_lib\res\values\version.xml_.
+
 
 
 API Reference
