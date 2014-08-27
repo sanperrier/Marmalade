@@ -38,6 +38,7 @@ deployments
 {
     #iphone-link-opts="-framework X" #Use this to bring in any additional link options needed
     iphone-link-opts="-weak_framework AdSupport"
+    iphone-link-opts="-weak_framework iAd"
     iphone-link-lib="AppsFlyerLib"
     iphone-link-lib="s3eAppsFlyer"
     iphone-link-libdir="lib/iphone"

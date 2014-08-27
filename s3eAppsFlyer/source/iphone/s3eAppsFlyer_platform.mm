@@ -215,7 +215,7 @@ s3eResult s3eAppsFlyerStartSession_internal(const char* _appleAppId, const char*
         //strcat(g_DisplayString, TempString); //Add the result of s3eConfigGetString
     }
 
-    const char currencyCodeStr = NULL;
+    const char* currencyCodeStr = NULL;
     char currencyCode[S3E_CONFIG_STRING_MAX+8] = {'\0'};
     if (s3eConfigGetString("APPSFLYER", "currencyCode", currencyCode) != S3E_RESULT_ERROR)
     {
@@ -331,4 +331,16 @@ void s3eAppsFlyerTrackEvent_platform(const char* eventName, const char* value)
 void s3eAppsFlyerLoadConversionData_platform()
 {
     [[AppsFlyerTracker sharedTracker] loadConversionDataWithDelegate : g_MyDelegate];
+}
+
+void s3eAppsFlyerSetCollectAndroidID_platform(s3eBool _disable)
+{
+}
+
+void s3eAppsFlyerSetCollectMACAddress_platform(s3eBool _disable)
+{
+}
+
+void s3eAppsFlyerSetCollectIMEI_platform(s3eBool _disable)
+{
 }
