@@ -96,6 +96,18 @@ static void s3eAppsFlyerSetCollectMACAddress_wrap(s3eBool _disable)
     s3eEdkThreadRunOnOS((s3eEdkThreadFunc)s3eAppsFlyerSetCollectMACAddress, 1, _disable);
 }
 
+static void s3eAppsFlyerDisableIAdTracking_wrap(s3eBool _disable)
+{
+    IwTrace(APPSFLYER_VERBOSE, ("calling s3eAppsFlyer func on main thread: s3eAppsFlyerDisableIAdTracking"));
+    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)s3eAppsFlyerDisableIAdTracking, 1, _disable);
+}
+
+static void s3eAppsFlyerDisableAppleAdSupportTracking_wrap(s3eBool _disable)
+{
+    IwTrace(APPSFLYER_VERBOSE, ("calling s3eAppsFlyer func on main thread: s3eAppsFlyerDisableAppleAdSupportTracking"));
+    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)s3eAppsFlyerDisableAppleAdSupportTracking, 1, _disable);
+}
+
 #define s3eAppsFlyerStartSession s3eAppsFlyerStartSession_wrap
 #define s3eAppsFlyerSetHTTPS s3eAppsFlyerSetHTTPS_wrap
 #define s3eAppsFlyerSetTrackingDisable s3eAppsFlyerSetTrackingDisable_wrap
@@ -108,6 +120,8 @@ static void s3eAppsFlyerSetCollectMACAddress_wrap(s3eBool _disable)
 #define s3eAppsFlyerSetCollectIMEI s3eAppsFlyerSetCollectIMEI_wrap
 #define s3eAppsFlyerSetCollectAndroidID s3eAppsFlyerSetCollectAndroidID_wrap
 #define s3eAppsFlyerSetCollectMACAddress s3eAppsFlyerSetCollectMACAddress_wrap
+#define s3eAppsFlyerDisableIAdTracking s3eAppsFlyerDisableIAdTracking_wrap
+#define s3eAppsFlyerDisableAppleAdSupportTracking s3eAppsFlyerDisableAppleAdSupportTracking_wrap
 
 #endif
 
@@ -124,7 +138,7 @@ s3eResult s3eAppsFlyerUnRegister(s3eAppsFlyerCallback cbid, s3eCallback fn)
 void s3eAppsFlyerRegisterExt()
 {
     /* fill in the function pointer struct for this extension */
-    void* funcPtrs[14];
+    void* funcPtrs[16];
     funcPtrs[0] = (void*)s3eAppsFlyerRegister;
     funcPtrs[1] = (void*)s3eAppsFlyerUnRegister;
     funcPtrs[2] = (void*)s3eAppsFlyerStartSession;
@@ -139,11 +153,13 @@ void s3eAppsFlyerRegisterExt()
     funcPtrs[11] = (void*)s3eAppsFlyerSetCollectIMEI;
     funcPtrs[12] = (void*)s3eAppsFlyerSetCollectAndroidID;
     funcPtrs[13] = (void*)s3eAppsFlyerSetCollectMACAddress;
+    funcPtrs[14] = (void*)s3eAppsFlyerDisableIAdTracking;
+    funcPtrs[15] = (void*)s3eAppsFlyerDisableAppleAdSupportTracking;
 
     /*
      * Flags that specify the extension's use of locking and stackswitching
      */
-    int flags[14] = { 0 };
+    int flags[16] = { 0 };
 
     /*
      * Register the extension

@@ -36,6 +36,8 @@ typedef       void(*s3eAppsFlyerLoadConversionData_t)();
 typedef       void(*s3eAppsFlyerSetCollectIMEI_t)(s3eBool _disable);
 typedef       void(*s3eAppsFlyerSetCollectAndroidID_t)(s3eBool _disable);
 typedef       void(*s3eAppsFlyerSetCollectMACAddress_t)(s3eBool _disable);
+typedef       void(*s3eAppsFlyerDisableIAdTracking_t)(s3eBool _disable);
+typedef       void(*s3eAppsFlyerDisableAppleAdSupportTracking_t)(s3eBool _disable);
 
 /**
  * struct that gets filled in by s3eAppsFlyerRegister
@@ -56,6 +58,8 @@ typedef struct s3eAppsFlyerFuncs
     s3eAppsFlyerSetCollectIMEI_t m_s3eAppsFlyerSetCollectIMEI;
     s3eAppsFlyerSetCollectAndroidID_t m_s3eAppsFlyerSetCollectAndroidID;
     s3eAppsFlyerSetCollectMACAddress_t m_s3eAppsFlyerSetCollectMACAddress;
+    s3eAppsFlyerDisableIAdTracking_t m_s3eAppsFlyerDisableIAdTracking;
+    s3eAppsFlyerDisableAppleAdSupportTracking_t m_s3eAppsFlyerDisableAppleAdSupportTracking;
 } s3eAppsFlyerFuncs;
 
 static s3eAppsFlyerFuncs g_Ext;
@@ -373,6 +377,46 @@ void s3eAppsFlyerSetCollectMACAddress(s3eBool _disable)
 #endif
 
     g_Ext.m_s3eAppsFlyerSetCollectMACAddress(_disable);
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return;
+}
+
+void s3eAppsFlyerDisableIAdTracking(s3eBool _disable)
+{
+    IwTrace(APPSFLYER_VERBOSE, ("calling s3eAppsFlyer[14] func: s3eAppsFlyerDisableIAdTracking"));
+
+    if (!_extLoad())
+        return;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
+    g_Ext.m_s3eAppsFlyerDisableIAdTracking(_disable);
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return;
+}
+
+void s3eAppsFlyerDisableAppleAdSupportTracking(s3eBool _disable)
+{
+    IwTrace(APPSFLYER_VERBOSE, ("calling s3eAppsFlyer[15] func: s3eAppsFlyerDisableAppleAdSupportTracking"));
+
+    if (!_extLoad())
+        return;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
+    g_Ext.m_s3eAppsFlyerDisableAppleAdSupportTracking(_disable);
 
 #ifdef LOADER_CALL_LOCK
     s3eDeviceLoaderCallDone(S3E_TRUE, NULL);

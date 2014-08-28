@@ -66,5 +66,9 @@ void s3eAppsFlyerSetCollectAndroidID_platform(s3eBool _disable);
 
 void s3eAppsFlyerSetCollectMACAddress_platform(s3eBool _disable);
 
+void s3eAppsFlyerDisableIAdTracking_platform(s3eBool _disable);
+
+void s3eAppsFlyerDisableAppleAdSupportTracking_platform(s3eBool _disable);
+
 
 #endif /* !S3EAPPSFLYER_INTERNAL_H */

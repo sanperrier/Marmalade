@@ -82,3 +82,13 @@ void s3eAppsFlyerSetCollectMACAddress(s3eBool _disable)
 {
 	s3eAppsFlyerSetCollectMACAddress_platform(_disable);
 }
+
+void s3eAppsFlyerDisableIAdTracking(s3eBool _disable)
+{
+	s3eAppsFlyerDisableIAdTracking_platform(_disable);
+}
+
+void s3eAppsFlyerDisableAppleAdSupportTracking(s3eBool _disable)
+{
+	s3eAppsFlyerDisableAppleAdSupportTracking_platform(_disable);
+}

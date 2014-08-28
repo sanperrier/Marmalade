@@ -356,3 +356,11 @@ void s3eAppsFlyerSetCollectMACAddress_platform(s3eBool _disable)
     JNIEnv* env = s3eEdkJNIGetEnv();
     env->CallVoidMethod(g_Obj, g_s3eAppsFlyerSetCollectMACAddress, _disable);
 }
+
+void s3eAppsFlyerDisableIAdTracking_platform(s3eBool _disable)
+{
+}
+
+void s3eAppsFlyerDisableAppleAdSupportTracking_platform(s3eBool _disable)
+{
+}

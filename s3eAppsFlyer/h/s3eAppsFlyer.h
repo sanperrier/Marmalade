@@ -231,6 +231,17 @@ void s3eAppsFlyerSetCollectAndroidID(s3eBool _disable);
  */
 void s3eAppsFlyerSetCollectMACAddress(s3eBool _disable);
 
+/**
+ *  Opt-out tracking for iAd attributions
+ */
+void s3eAppsFlyerDisableIAdTracking(s3eBool _disable);
+
+/**
+ *  AppsFLyer SDK collect Apple's advertisingIdentifier if the AdSupport framework included in the SDK.
+ *  You can disable this behavior by setting the following property to true.
+ */
+void s3eAppsFlyerDisableAppleAdSupportTracking(s3eBool _disable);
+
 S3E_END_C_DECL
 
 /** @} */

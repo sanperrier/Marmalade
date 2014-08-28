@@ -132,6 +132,14 @@ int32 applicationDidBecomeActiveCallback(void* systemData, void* userData)
     return 0;
 }
 
+int32 applicationOpenUrlCallback(void* systemData, void* userData)
+{
+    //IwTrace(APPSFLYER_VERBOSE, ("applicationDidBecomeActiveCallback-----------------------------"));
+    NSURL *url = (NSURL *)systemData;
+    [[AppsFlyerTracker sharedTracker] handleOpenURL:url sourceApplication:@""];
+    return 0;
+}
+
 
 s3eResult s3eAppsFlyerInit_platform()
 {
@@ -143,6 +151,10 @@ s3eResult s3eAppsFlyerInit_platform()
 
     s3eEdkCallbacksRegisterInternal(S3E_EDK_INTERNAL, S3E_EDK_CALLBACK_MAX, S3E_EDK_IPHONE_APPLICATIONDIDBECOMEACTIVE,
                 (s3eCallback)applicationDidBecomeActiveCallback,
+                NULL, S3E_FALSE);
+
+    s3eEdkCallbacksRegisterInternal(S3E_EDK_INTERNAL, S3E_EDK_CALLBACK_MAX, S3E_EDK_IPHONE_HANDLEOPENURL,
+                (s3eCallback)applicationOpenUrlCallback,
                 NULL, S3E_FALSE);
 
     s3eAppsFlyerStartSession_internal(NULL, NULL, NULL, S3E_FALSE, NULL, S3E_TRUE);
@@ -164,6 +176,9 @@ void s3eAppsFlyerTerminate_platform()
 
     s3eEdkCallbacksUnRegister(S3E_EDK_INTERNAL, S3E_EDK_CALLBACK_MAX, S3E_EDK_IPHONE_APPLICATIONDIDBECOMEACTIVE,
                 (s3eCallback)applicationDidBecomeActiveCallback);
+
+    s3eEdkCallbacksUnRegister(S3E_EDK_INTERNAL, S3E_EDK_CALLBACK_MAX, S3E_EDK_IPHONE_HANDLEOPENURL,
+                (s3eCallback)applicationOpenUrlCallback);
 
 }
 
@@ -343,4 +358,14 @@ void s3eAppsFlyerSetCollectMACAddress_platform(s3eBool _disable)
 
 void s3eAppsFlyerSetCollectIMEI_platform(s3eBool _disable)
 {
+}
+
+void s3eAppsFlyerDisableIAdTracking_platform(s3eBool _disable)
+{
+    [AppsFlyerTracker sharedTracker].disableIAdTracking = _disable ? YES : NO;
+}
+
+void s3eAppsFlyerDisableAppleAdSupportTracking_platform(s3eBool _disable)
+{
+    [AppsFlyerTracker sharedTracker].disableAppleAdSupportTracking = _disable ? YES : NO;
 }

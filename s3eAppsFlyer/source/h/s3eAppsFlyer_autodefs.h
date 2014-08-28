@@ -15,7 +15,7 @@
 #ifndef S3E_EXT_REGISTER_KEY
 #define S3E_EXT_REGISTER_KEY(name, num, key) S3E_EXT_REGISTER(name, num)
 #endif
-S3E_EXT_REGISTER("s3eAppsFlyer", 14)
+S3E_EXT_REGISTER("s3eAppsFlyer", 16)
 #else
 
 #endif /* S3E_EXT_REGISTER */
