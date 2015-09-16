@@ -22,6 +22,10 @@ files
     (interface)
     s3eAppsFlyer_interface.cpp
     s3eAppsFlyer.defines.txt
+	
+	["docs"]
+    (docs)
+    app.config.txt
 }
 
 defines

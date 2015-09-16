@@ -1,0 +1,6 @@
+[APPSFLYER]
+appleAppId                  <string>    Add your App Store application id here (for android this not needed)
+devKey                      <string>    Add your AppsFlyer dev key here
+autoStart                   <string>    Default is false. If you set to "true" then this is all you need to start tracking installs, updates and sessions
+isHTTPS                     <string>    Default is false.
+currencyCode                <string>    Default is "USD". ISO currency code (optional)
