@@ -2,13 +2,10 @@ s3eAppsFlyer
 ============
 
 Marmalade extension for http://appsflyer.com SDK.  
-Supports Android and iOS platforms.
+Supports iOS platforms.
 
 
 On iOS used AppsFlyer iOS SDK v2.5.3.8  
-On Android used AppsFlyer Android SDK v1.5.2  
-
-
 
 HOW TO USE
 ---------
@@ -46,38 +43,6 @@ If you wish track additional in-app events beyond app installs (including in-app
 then you must use [API](#api-reference).
 
 If you don't want to use .icf file or you want to set your own custom user ID then you must call `s3eAppsFlyerStartSession`.
-
-Android notes
--------------
-The AndroidManifest.xml should include the following permissions:
-```xml
-<uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-<uses-permission android:name="android.permission.READ_PHONE_STATE" />
-```
-
-* READ_PHONE_STATE permission is optional.
-Adding this permission will enable carrier tracking of Android_id and IMEI (required for tracking out of Google Play).
-
-This three permission is automatically included if you use this extension. If you want to remove some of them then edit file s3eAppsFlyer/appsflyer_perm.xml.
-
-Also for AppsFlyer to work there must be AppsFlyer receiver section in AndroidManifest.xml and it must be first.  
-There is example AndroidManifest.xml that you can use in s3eAppsFlyerExample folder.  
-Just copy it into you project's folder and add to deployments section of you project's mkb:
-
-
-    android-manifest=AndroidManifest.xml
-
-
-### Google Advertiser Id
-Google Play Services library .jar included in extension (s3eAppsFlyer/lib/android/google-play-services.jar)
-If you want to replace it with newer version don't forget to put version metadata
-```xml
-<meta-data android:name="com.google.android.gms.version" android:value="5089000" />
-```
-to _appsflyer_app.xml_, taken from _android-sdk\extras\google\google_play_services\libproject\google-play-services_lib\res\values\version.xml_.
-
-
 
 API Reference
 -------------
