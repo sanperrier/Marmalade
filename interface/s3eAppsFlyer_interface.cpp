@@ -11,10 +11,11 @@
 #include "s3eAppsFlyer.h"
 
 
+// Define S3E_EXT_SKIP_LOADER_CALL_LOCK on the user-side to skip LoaderCallStart/LoaderCallDone()-entry.
+// e.g. in s3eNUI this is used for generic user-side IwUI-based implementation.
 #ifndef S3E_EXT_SKIP_LOADER_CALL_LOCK
-// For MIPs (and WP8) platform we do not have asm code for stack switching
-// implemented. So we make LoaderCallStart call manually to set GlobalLock
-#if defined __mips || defined S3E_ANDROID_X86 || (defined(WINAPI_FAMILY) && (WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP))
+#if defined I3D_ARCH_MIPS || defined S3E_ANDROID_X86 || (defined(WINAPI_FAMILY) && (WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)) || defined I3D_ARCH_NACLX86_64
+// For platforms missing stack-switching (MIPS, WP8, Android-x86, NaCl, etc.) make loader-entry via LoaderCallStart/LoaderCallDone() on the user-side.
 #define LOADER_CALL_LOCK
 #endif
 #endif
@@ -113,13 +114,13 @@ s3eResult s3eAppsFlyerRegister(s3eAppsFlyerCallback cbid, s3eCallback fn, void* 
         return S3E_RESULT_ERROR;
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerRegister);
 #endif
 
     s3eResult ret = g_Ext.m_s3eAppsFlyerRegister(cbid, fn, userData);
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerRegister);
 #endif
 
     return ret;
@@ -133,13 +134,13 @@ s3eResult s3eAppsFlyerUnRegister(s3eAppsFlyerCallback cbid, s3eCallback fn)
         return S3E_RESULT_ERROR;
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerUnRegister);
 #endif
 
     s3eResult ret = g_Ext.m_s3eAppsFlyerUnRegister(cbid, fn);
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerUnRegister);
 #endif
 
     return ret;
@@ -153,13 +154,13 @@ s3eResult s3eAppsFlyerStartSession(const char* appleAppId, const char* devKey, c
         return S3E_RESULT_ERROR;
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerStartSession);
 #endif
 
     s3eResult ret = g_Ext.m_s3eAppsFlyerStartSession(appleAppId, devKey, currencyCode, isHTTPS, customerUserID);
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerStartSession);
 #endif
 
     return ret;
@@ -173,13 +174,13 @@ void s3eAppsFlyerSetHTTPS(s3eBool isHTTPS)
         return;
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerSetHTTPS);
 #endif
 
     g_Ext.m_s3eAppsFlyerSetHTTPS(isHTTPS);
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerSetHTTPS);
 #endif
 
     return;
@@ -193,13 +194,13 @@ void s3eAppsFlyerSetTrackingDisable(s3eBool _disable)
         return;
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerSetTrackingDisable);
 #endif
 
     g_Ext.m_s3eAppsFlyerSetTrackingDisable(_disable);
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerSetTrackingDisable);
 #endif
 
     return;
@@ -213,13 +214,13 @@ void s3eAppsFlyerSetIsDebug(s3eBool _isDebug)
         return;
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerSetIsDebug);
 #endif
 
     g_Ext.m_s3eAppsFlyerSetIsDebug(_isDebug);
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerSetIsDebug);
 #endif
 
     return;
@@ -233,13 +234,13 @@ void s3eAppsFlyerSetCurrencyCode(const char* currencyCode)
         return;
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerSetCurrencyCode);
 #endif
 
     g_Ext.m_s3eAppsFlyerSetCurrencyCode(currencyCode);
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerSetCurrencyCode);
 #endif
 
     return;
@@ -253,13 +254,13 @@ void s3eAppsFlyerSetCustomerUserID(const char* customerUserID)
         return;
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerSetCustomerUserID);
 #endif
 
     g_Ext.m_s3eAppsFlyerSetCustomerUserID(customerUserID);
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerSetCustomerUserID);
 #endif
 
     return;
@@ -273,13 +274,13 @@ void s3eAppsFlyerTrackEvent(const char* eventName, const char* value)
         return;
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerTrackEvent);
 #endif
 
     g_Ext.m_s3eAppsFlyerTrackEvent(eventName, value);
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerTrackEvent);
 #endif
 
     return;
@@ -293,13 +294,13 @@ const char * getAppsFlyerUID()
         return NULL;
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_getAppsFlyerUID);
 #endif
 
     const char * ret = g_Ext.m_getAppsFlyerUID();
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_getAppsFlyerUID);
 #endif
 
     return ret;
@@ -313,13 +314,13 @@ void s3eAppsFlyerLoadConversionData()
         return;
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerLoadConversionData);
 #endif
 
     g_Ext.m_s3eAppsFlyerLoadConversionData();
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerLoadConversionData);
 #endif
 
     return;
@@ -333,13 +334,13 @@ void s3eAppsFlyerSetCollectIMEI(s3eBool _disable)
         return;
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerSetCollectIMEI);
 #endif
 
     g_Ext.m_s3eAppsFlyerSetCollectIMEI(_disable);
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerSetCollectIMEI);
 #endif
 
     return;
@@ -353,13 +354,13 @@ void s3eAppsFlyerSetCollectAndroidID(s3eBool _disable)
         return;
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerSetCollectAndroidID);
 #endif
 
     g_Ext.m_s3eAppsFlyerSetCollectAndroidID(_disable);
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerSetCollectAndroidID);
 #endif
 
     return;
@@ -373,13 +374,13 @@ void s3eAppsFlyerSetCollectMACAddress(s3eBool _disable)
         return;
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerSetCollectMACAddress);
 #endif
 
     g_Ext.m_s3eAppsFlyerSetCollectMACAddress(_disable);
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerSetCollectMACAddress);
 #endif
 
     return;
@@ -393,13 +394,13 @@ void s3eAppsFlyerDisableIAdTracking(s3eBool _disable)
         return;
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerDisableIAdTracking);
 #endif
 
     g_Ext.m_s3eAppsFlyerDisableIAdTracking(_disable);
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerDisableIAdTracking);
 #endif
 
     return;
@@ -413,13 +414,13 @@ void s3eAppsFlyerDisableAppleAdSupportTracking(s3eBool _disable)
         return;
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerDisableAppleAdSupportTracking);
 #endif
 
     g_Ext.m_s3eAppsFlyerDisableAppleAdSupportTracking(_disable);
 
 #ifdef LOADER_CALL_LOCK
-    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eAppsFlyerDisableAppleAdSupportTracking);
 #endif
 
     return;

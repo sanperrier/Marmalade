@@ -109,7 +109,7 @@ s3eResult s3eAppsFlyerRegister(s3eAppsFlyerCallback cbid, s3eCallback fn, void* 
 
 /**
  * Unregister a callback for a given event.
- * @param cbid ID of the callback for which to register.
+ * @param cbid ID of the callback to unregister.
  * @param fn Callback Function.
  * @return
  * - @ref S3E_RESULT_SUCCESS if no error occurred.
@@ -242,7 +242,9 @@ void s3eAppsFlyerDisableIAdTracking(s3eBool _disable);
  */
 void s3eAppsFlyerDisableAppleAdSupportTracking(s3eBool _disable);
 
+// \cond HIDDEN_DEFINES
 S3E_END_C_DECL
+// \endcond
 
 /** @} */
 

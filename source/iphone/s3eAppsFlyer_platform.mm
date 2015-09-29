@@ -256,10 +256,10 @@ s3eResult s3eAppsFlyerStartSession_internal(const char* _appleAppId, const char*
 
         [AppsFlyerTracker sharedTracker].appsFlyerDevKey = nsDevKey;
         [AppsFlyerTracker sharedTracker].appleAppID = nsAppleAppId;
-        if (isHTTPS)
-        {
-            [AppsFlyerTracker sharedTracker].isHTTPS = YES; 
-        }
+//        if (isHTTPS)
+//        {
+//            [AppsFlyerTracker sharedTracker].isHTTPS = YES; 
+//        }
         if (currencyCodeStr != NULL) {
             NSString* nsCurrencyCode = [NSString stringWithUTF8String:currencyCodeStr];
             [AppsFlyerTracker sharedTracker].currencyCode = nsCurrencyCode;

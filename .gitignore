@@ -5,10 +5,7 @@
 
 
 *.stamp
-s3eAppsFlyerExample/build_s3eappsflyerexample_vc10
-s3eAppsFlyerExample/build_s3eappsflyerexample_vc11x
-s3eAppsFlyerExample/data/app.icf.orig
-s3eAppsFlyer/build_s3eappsflyer_android_java/
-s3eAppsFlyer/build_s3eappsflyer_android_linux_scons_arm/
+build_s3eappsflyer_android_java/
+build_s3eappsflyer_android_linux_scons_arm/
 *.map
-s3eAppsFlyerExample/data/app.icf.1
+

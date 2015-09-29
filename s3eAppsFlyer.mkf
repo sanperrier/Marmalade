@@ -26,6 +26,7 @@ files
 	["docs"]
     (docs)
     app.config.txt
+
 }
 
 defines
