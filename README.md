@@ -5,7 +5,7 @@ Marmalade extension for http://appsflyer.com SDK.
 Supports iOS platforms.
 
 
-On iOS used AppsFlyer iOS SDK v2.5.3.8  
+On iOS used AppsFlyer iOS SDK v2.5.3.10 
 
 HOW TO USE
 ---------
